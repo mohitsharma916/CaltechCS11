@@ -4,4 +4,4 @@ http://courses.cms.caltech.edu/cs11/material/advcpp/
 
 I'll use this page to track my progress and collect new information.
 
-* Operator Overload
+* Operator Overloading
