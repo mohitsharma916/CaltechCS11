@@ -9,7 +9,7 @@ I'll use this page to track my progress and collect new information.
     * Non-member Operator Overload
 
  
-* [] ```const``` [Details](http://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
+* [ ] ```const``` [Details](http://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
     
     A "const function", denoted with the keyword const after a function declaration, makes it a compiler error for this class function to change a member variable of the class. However, reading of a class variables is ok inside of the function, but writing inside of this function will generate a compiler error.
 
