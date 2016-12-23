@@ -16,7 +16,7 @@ TODO
 Additional Details
 * [ ] ```const``` [Stackoverflow Answer](http://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
 
-* [ ] ```vistual```
+* [ ] ```virtual```
 When calling a function using pointers or references, the following rules apply:
  * A call to a virtual function is resolved according to the underlying type of object for which it is called.
  * A call to a nonvirtual function is resolved according to the type of the pointer or reference.
