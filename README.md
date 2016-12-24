@@ -10,6 +10,10 @@ I'll use this page to track my progress and collect new information.
 
    * Overloading Typecasts
 
+   * Overload Guidelines
+      * (),[], -> : Must be member functions
+      * Compound assignment operators (+=, -=, \*=, /=, %=,&=,... ): Should be member functions
+      * << and >> : Cannot be member functions
 TODO
    * Constructor Details
 
