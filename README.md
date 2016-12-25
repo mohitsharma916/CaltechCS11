@@ -14,9 +14,12 @@ I'll use this page to track my progress and collect new information.
       * (),[], -> : Must be member functions
       * Compound assignment operators (+=, -=, \*=, /=, %=,&=,... ): Should be member functions
       * << and >> : Cannot be member functions
+
 TODO
    * Constructor Details
-
+   * Why should compund assignment operators be implemented as member functions?
+   * Read in detail about casting in cpp in reference to classes.
+   
 Additional Details
 * [ ] ```const``` [Stackoverflow Answer](http://stackoverflow.com/questions/4622330/operator-overloading-member-function-vs-non-member-function)
 
