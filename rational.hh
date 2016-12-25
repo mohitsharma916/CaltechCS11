@@ -73,6 +73,51 @@ public:
         return _reciprocal;
     }
 
+    /**
+        Overload the compound assignment operators
+    **/
+
+    /**
+        Rational += Rational
+    **/
+    Rational& operator+=(const Rational& _rational_1);
+
+    /**
+        Rational += Scalar
+    **/
+    Rational& operator+=(const int& _scalar);
+
+    /**
+        Rational *= Rational
+    **/
+    Rational& operator*=(const Rational& _rational_1);
+
+    /**
+        Rational *= Scalar
+    **/
+    Rational& operator*=(const int& _scalar);
+
+    /**
+        Rational -= Rational
+    **/
+    Rational& operator-=(const Rational& _rational_1);
+
+    /**
+        Rational -= Scalar
+    **/
+    Rational& operator-=(const int& _scalar);
+
+    /**
+        Rational /= Rational
+    **/
+    Rational& operator/=(const Rational& _rational_1);
+
+    /**
+        Rational /= Scalar
+    **/
+    Rational& operator/=(const int& _scalar);
+
+
 };
 
 /**
@@ -86,7 +131,7 @@ public:
 
     Rational + Rational
 **/
-const Rational& operator+(const Rational& _rational_1, const Rational& _rational_2){
+Rational& operator+(const Rational& _rational_1, const Rational& _rational_2){
 
     int numerator = _rational_1.num()*_rational_2.denom() + _rational_2.num()*_rational_1.denom();
     int denominator = _rational_1.denom()* _rational_2.denom();
@@ -102,7 +147,8 @@ const Rational& operator+(const Rational& _rational_1, const Rational& _rational
     Scalar + Rational
 **/
 
-const Rational& operator+(const int _scalar,  const Rational& _rational_1){
+Rational& operator+(const int _scalar,  const Rational& _rational_1){
+    
     Rational _rational_2(_scalar);
 
     return _rational_1 + _rational_2;
@@ -113,7 +159,8 @@ const Rational& operator+(const int _scalar,  const Rational& _rational_1){
 
     Rational + Scalar
 **/
-const Rational& operator+(const Rational& _rational_1, const int _scalar){
+Rational& operator+(const Rational& _rational_1, const int _scalar){
+    
     Rational _rational_2(_scalar);
 
     return _rationa_1 + _rational_2;
@@ -137,7 +184,7 @@ Rational& operator-(const Rational& _rationa_1, const Rational& _rationa1_2){
 
     Rational * Rational
 **/
-const Rational& operator*(const Rational& _rational_1, const Rational& _rational_2){
+Rational& operator*(const Rational& _rational_1, const Rational& _rational_2){
 
     int numerator = _rational_1.num()*_rational_2.numerator();
     int denominator = _rational_1.denom() * _rational_2.denom();
@@ -152,7 +199,8 @@ const Rational& operator*(const Rational& _rational_1, const Rational& _rational
 
     Rational * Scalar
 **/
-const Raional& operator*(const Rational& _rational_1, const int _scalar){
+Raional& operator*(const Rational& _rational_1, const int _scalar){
+    
     Rational _rational_2(_scalar);
 
     return _rational_1 * _rational_2;
@@ -163,7 +211,8 @@ const Raional& operator*(const Rational& _rational_1, const int _scalar){
 
     Scalar * Rational
 **/
-const Rational& operator*(const int _scalar, Rational& _rational_1){
+Rational& operator*(const int _scalar, Rational& _rational_1){
+    
     Rational _rational_2(_scalar);
 
     return _rational_1 * _rational_2;
@@ -174,7 +223,7 @@ const Rational& operator*(const int _scalar, Rational& _rational_1){
 
     Rational / Rational
 **/
-const Rational& operator/(const Rational& _rational_1, const Rational& _rational_2){
+Rational& operator/(const Rational& _rational_1, const Rational& _rational_2){
 
     Rational _rational_2_reciprocal = _rational_2.reciprocal();
 
@@ -186,7 +235,8 @@ const Rational& operator/(const Rational& _rational_1, const Rational& _rational
 
     Rational / Scalar
 **/
-const Rational& operator/(const Rational& _rational_1,const int _scalar){
+Rational& operator/(const Rational& _rational_1,const int _scalar){
+   
     Rational _rational_2(_scalar);
 
     return _rational_1 / _rational_2;
@@ -197,8 +247,98 @@ const Rational& operator/(const Rational& _rational_1,const int _scalar){
 
     Scalar / Rational
 **/
-const Rational& operator/(const int _scalar, const Rational& _rational_1){
+Rational& operator/(const int _scalar, const Rational& _rational_1){
+    
     Rational _rational_2(_scalar);
 
     return _rational_2/_rational_1;
 }
+
+/**
+    Overloading the Compund Assignment Operators
+**/
+
+/**
+    Rational += Rational
+**/
+Rational& operator+=(const Rational& _rational_1){
+    
+    *this =  (*this) + _rational_1;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational += Scalar
+**/
+Rational& operator+=(const int& _scalar){
+    
+    Rational _rational_1(_scalar);
+    *this = (*this) + _rational_1;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational -= Rational
+**/
+Rational& operator-=(const Rational& _rational_1){
+    
+    *this = (*this) - _rational_1;
+
+    return (Rational &) (*this);   
+}
+
+/**
+    Rational -= Scalar
+**/
+Rational& operator-=(const int& _scalar){
+    
+    Rational _rational_1(_scalar);
+    *this = (*this) - _rational_1;
+
+    return (Rational &) *this;
+}
+
+/**
+    Rational *= Rational
+**/
+Rational& operator*=(const Rational& _rational_1){
+    
+    *this = (*this) * _rational_1;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational *= Scalar
+**/
+Rational& operator*=(const int& _scalar){
+
+    Rational _rational_1(_scalar);
+    *this = (*this) * _rational_1;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational /= Rational
+**/
+Rational& operator/=(const Rational& _rational_1){
+    
+    *this = (*this) / _rational_1;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational /= Scalar
+**/
+Rational& operator/=(const int& _scalar){
+
+    Rational _rational_1(_scalar);
+    *this = (*this) / _rational_1;
+
+    return (Rational &) (*this);
+}
+
