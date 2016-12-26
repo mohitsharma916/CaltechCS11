@@ -121,6 +121,29 @@ public:
     **/
     Rational& operator/=(const int& _scalar);
 
+    /**
+        Overloading pre and post increment and decrement opeators
+    **/
+
+    /**
+        ++Rational
+    **/
+    Rational& operator++();
+
+    /**
+        Rational++
+    **/
+    Rational& operator++(int);
+
+    /**
+        --Rational
+    **/
+    Rational& operator--();
+
+    /**
+        Rational--
+    **/
+    Rational& operator--(int);
 
 };
 
@@ -363,3 +386,54 @@ Rational& Rational::operator/=(const int& _scalar){
     return (Rational &) (*this);
 }
 
+/**
+    Overloading Prefix and Postfix increment operators
+**/
+
+/**
+    ++Rational
+**/
+Rational& Rational::operator++(){
+    Rational plus_one(1);
+
+    *this = *this + plus_one;
+
+    return (Rational &) (*this);
+}
+
+/**
+    Rational++
+**/
+Rational& Rational::operator++(int){
+    Rational *current_rational = new Rational(this->num(),this->denom());
+
+    Rational plus_one(1);
+
+    *this = *this + plus_one;
+
+    return (Rational &)(*current_rational);
+}
+
+/**
+    --Rational
+**/
+Rational& Rational::operator--(){
+    Rational minus_one(-1);
+
+    *this = *this + minus_one;
+
+    return (Rational &)(*this);
+}
+
+/**
+    Rational--
+**/
+Rational& Rational::operator--(int){
+    Rational *current_rational = new Rational(this->num(),this->denom());
+
+    Rational minus_one(-1);
+
+    *this = *this + minus_one;
+
+    return (Rational &)(*current_rational);
+}
