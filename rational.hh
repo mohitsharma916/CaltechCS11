@@ -150,10 +150,25 @@ public:
     **/
     Rational& operator-();
 
+    /**
+        Overloading the float() typecast
+    **/
+    operator float(){
+        return (float)(this->num()*1.0/this->denom());
+    }
+
+    /**
+        Overloading the double() typecast
+    **/
+    operator double(){
+        return (double)(this->num()*1.0/this->denom());
+    }
+
+
 };
 
 /**
-    Declaration for all the operator overload methods
+    Declaration for all the non-member operator overload methods
 **/
 
 Rational& operator+(Rational& _rational_1,Rational& _rational_2);
@@ -166,6 +181,24 @@ Rational& operator*(const int _scalar, Rational& _rational_1);
 Rational& operator/( Rational& _rational_1,const int _scalar);
 Rational& operator/(Rational& _rational_1, Rational& _rational_2);
 Rational& operator/(const int _scalar, Rational& _rational_1);
+bool operator>(Rational& _rational_1,Rational& _rational_2);
+bool operator>(Rational& _rational_1, const int _scalar);
+bool operator>(const int _scalar, Rational& _rational_1);
+bool operator<(Rational& _rational_1, Rational& _rational_2);
+bool operator<(Rational& _rational_1, const int _scalar);
+bool operator<(const int _scalar, Rational& _rational_1);
+bool operator==(Rational& _rational_1, Rational& _rational_2);
+bool operator==(Rational& _rational_1, const int _scalar);
+bool operator==(const int _scalar, Rational& _rational_1);
+bool operator>=(Rational& _rational_1, Rational& _rational_2);
+bool operator>=(Rational& _rational_1, const int _scalar);
+bool operator>=(const int _scalar, Rational& _rational_1);
+bool operator<=(Rational& _rational_1, Rational& _rational_2);
+bool operator<=(Rational& _rational_1, const int _scalar);
+bool operator<=(const int _scalar, Rational& _rational);
+bool operator!=(Rational& _rational_1, Rational& _rational_2);
+bool operator!=(Rational& _rational_1, const int _scalar);
+bool operator!=(const int _scalar, Rational& _rational_1);
 
 
 
@@ -451,4 +484,176 @@ Rational& Rational::operator-(){
 
     return (Rational &) (*negation);
 
+}
+
+/**
+    Implementation for methods overloading the comparison operators
+**/
+
+/**
+    Rational > Rational
+**/
+bool operator>(Rational& _rational_1,Rational& _rational_2){
+
+    return float(_rational_1 - _rational_2) > 0;
+}
+
+/**
+    Rational > Scalar
+**/
+bool operator>(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return (float)(_rational_1 - _rational_2) > 0;
+}
+
+/**
+    Scalar > Rational
+**/
+bool operator>(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return (float)(_rational_2 - _rational_1) > 0;
+}
+
+/**
+    Rational < Rational
+**/
+bool operator<(Rational& _rational_1, Rational& _rational_2){
+
+    return (float)(_rational_1 - _rational_2) < 0;
+}
+/**
+    Rational < Scalar
+**/
+bool operator<(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return (float)(_rational_1 - _rational_2) < 0;
+
+}
+
+/**
+    Scalar < Rational
+**/
+bool operator<(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return (float)(_rational_2 - _rational_1) < 0;
+}
+
+/**
+    Rational == Rational
+**/
+bool operator==(Rational& _rational_1, Rational& _rational_2){
+
+    return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
+}
+
+/**
+    Rational == Scalar
+**/
+bool operator==(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
+}
+
+/**
+    Scalar == Rational
+**/
+bool operator==(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
+}
+
+/**
+    Rational >= Rational
+**/
+bool operator>=(Rational& _rational_1, Rational& _rational_2){
+
+    return float(_rational_1 - _rational_2) >= 0;
+}
+
+/**
+    Rational >= Scalar
+**/
+bool operator>=(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_1 - _rational_2) >= 0;
+}
+
+/**
+    Scalar >= Rational
+**/
+bool operator>=(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_2 - _rational_1) >= 0;
+}
+
+/**
+    Rational <= Rational
+**/
+bool operator<=(Rational& _rational_1, Rational& _rational_2){
+
+    return float(_rational_1 - _rational_2) <= 0;
+}
+
+/**
+    Rational <= Scalar
+**/
+bool operator<=(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_1 - _rational_2) <= 0;
+}
+
+/**
+    Scalar <= Rational
+**/
+bool operator<=(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_2 - _rational_1) <= 0;
+}
+
+/**
+    Rational != Rational
+**/
+bool operator!=(Rational& _rational_1, Rational& _rational_2){
+
+    return float(_rational_1 - _rational_2) != 0;
+}
+
+/**
+    Rational != Scalar
+**/
+bool operator!=(Rational& _rational_1, const int _scalar){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_1 - _rational_2) != 0;
+}
+
+/**
+    Scalar != Rational
+**/
+bool operator!=(const int _scalar, Rational& _rational_1){
+
+    Rational _rational_2(_scalar);
+
+    return float(_rational_1 - _rational_2) != 0;
 }
