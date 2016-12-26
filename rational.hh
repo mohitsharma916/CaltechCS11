@@ -145,6 +145,11 @@ public:
     **/
     Rational& operator--(int);
 
+    /**
+        Overloading Unary negation operator
+    **/
+    Rational& operator-();
+
 };
 
 /**
@@ -436,4 +441,14 @@ Rational& Rational::operator--(int){
     *this = *this + minus_one;
 
     return (Rational &)(*current_rational);
+}
+
+/**
+    Overloading Unary Negation Operator
+**/
+Rational& Rational::operator-(){
+    Rational *negation = new Rational(-1 * this->num(),this->denom());
+
+    return (Rational &) (*negation);
+
 }
