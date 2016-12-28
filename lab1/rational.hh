@@ -1,7 +1,5 @@
 #include <cstdlib>
 #include<stdexcept>
-// #include<iostream>
-
 
 class Rational{
 
