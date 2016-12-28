@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include<stdexcept>
+// #include<iostream>
 
 
 class Rational{
@@ -53,21 +54,23 @@ public:
             denominator = d;
         }
 
-        Rational::reduce((Rational &)(*this),numerator,denominator);
+        Rational::reduce(*this,numerator,denominator);
     }
 
-    // Get the numerator of the rational number
-    int num(){
+    // Get the numerator of the rational number: Const version
+    const int num() const{
         return this->numerator;
     }
 
-    // Get the denominator of the rational number
-    int denom(){
+    
+    // Get the denominator of the rational number: Const version
+    const int denom() const{
         return this->denominator;
     }
 
+
     // Get the Reciprocal of a Rational Number
-    Rational reciprocal(){
+    Rational reciprocal() const {
         if(numerator ==0){
             throw std::runtime_error("Error: Reciprocal not defined.");
         }
@@ -84,42 +87,22 @@ public:
     /**
         Rational += Rational
     **/
-    Rational& operator+=( Rational& _rational_1);
-
-    /**
-        Rational += Scalar
-    **/
-    Rational& operator+=(const int& _scalar);
+    Rational& operator+=( const Rational& _rational_1);
 
     /**
         Rational *= Rational
     **/
-    Rational& operator*=( Rational& _rational_1);
-
-    /**
-        Rational *= Scalar
-    **/
-    Rational& operator*=(const int& _scalar);
+    Rational& operator*=( const Rational& _rational_1);
 
     /**
         Rational -= Rational
     **/
-    Rational& operator-=( Rational& _rational_1);
-
-    /**
-        Rational -= Scalar
-    **/
-    Rational& operator-=(const int& _scalar);
+    Rational& operator-=( const Rational& _rational_1);
 
     /**
         Rational /= Rational
     **/
-    Rational& operator/=( Rational& _rational_1);
-
-    /**
-        Rational /= Scalar
-    **/
-    Rational& operator/=(const int& _scalar);
+    Rational& operator/=( const Rational& _rational_1);
 
     /**
         Overloading pre and post increment and decrement opeators
@@ -164,43 +147,22 @@ public:
         return (double)(this->num()*1.0/this->denom());
     }
 
-
 };
 
 /**
     Declaration for all the non-member operator overload methods
 **/
 
-Rational& operator+(Rational& _rational_1,Rational& _rational_2);
-Rational& operator+(const int _scalar, Rational& _rational_1);
-Rational& operator+(Rational& _rational_1, const int _scalar);
-Rational& operator-(Rational& _rational_1, Rational& _rational_2);
-Rational& operator*(Rational& _rational_1, Rational& _rational_2);
-Rational& operator*(Rational& _rational_1, const int _scalar);
-Rational& operator*(const int _scalar, Rational& _rational_1);
-Rational& operator/( Rational& _rational_1,const int _scalar);
-Rational& operator/(Rational& _rational_1, Rational& _rational_2);
-Rational& operator/(const int _scalar, Rational& _rational_1);
-bool operator>(Rational& _rational_1,Rational& _rational_2);
-bool operator>(Rational& _rational_1, const int _scalar);
-bool operator>(const int _scalar, Rational& _rational_1);
-bool operator<(Rational& _rational_1, Rational& _rational_2);
-bool operator<(Rational& _rational_1, const int _scalar);
-bool operator<(const int _scalar, Rational& _rational_1);
-bool operator==(Rational& _rational_1, Rational& _rational_2);
-bool operator==(Rational& _rational_1, const int _scalar);
-bool operator==(const int _scalar, Rational& _rational_1);
-bool operator>=(Rational& _rational_1, Rational& _rational_2);
-bool operator>=(Rational& _rational_1, const int _scalar);
-bool operator>=(const int _scalar, Rational& _rational_1);
-bool operator<=(Rational& _rational_1, Rational& _rational_2);
-bool operator<=(Rational& _rational_1, const int _scalar);
-bool operator<=(const int _scalar, Rational& _rational);
-bool operator!=(Rational& _rational_1, Rational& _rational_2);
-bool operator!=(Rational& _rational_1, const int _scalar);
-bool operator!=(const int _scalar, Rational& _rational_1);
-
-
+Rational& operator+(const Rational & _rational_1,const Rational & _rational_2 );
+Rational& operator-(const Rational& _rational_1, const Rational& _rational_2);
+Rational& operator*(const Rational& _rational_1, const Rational& _rational_2);
+Rational& operator/(const Rational& _rational_1, const Rational& _rational_2);
+bool operator>(const Rational& _rational_1,const Rational& _rational_2);
+bool operator<(const Rational& _rational_1, const Rational& _rational_2);
+bool operator==(const Rational& _rational_1, const Rational& _rational_2);
+bool operator>=(const Rational& _rational_1, const Rational& _rational_2);
+bool operator<=(const Rational& _rational_1, const Rational& _rational_2);
+bool operator!=(const Rational& _rational_1, const Rational& _rational_2);
 
 /**
 
@@ -213,39 +175,14 @@ bool operator!=(const int _scalar, Rational& _rational_1);
 
     Rational + Rational
 **/
-Rational& operator+(Rational& _rational_1,Rational& _rational_2){
+Rational& operator+(const Rational& _rational_1, const Rational& _rational_2){
 
     int numerator = _rational_1.num() * _rational_2.denom() + _rational_2.num() * _rational_1.denom();
     int denominator = _rational_1.denom()* _rational_2.denom();
 
     Rational *sum = new Rational(numerator,denominator);
 
-    return (Rational &)sum;
-}
-
-/**
-    Overloading the Addition Operator
-
-    Scalar + Rational
-**/
-
-Rational& operator+(const int _scalar, Rational& _rational_1){
-    
-    Rational _rational_2(_scalar);
-
-    return _rational_1 + _rational_2;
-}
-
-/**
-    Overloading Addition Operator
-
-    Rational + Scalar
-**/
-Rational& operator+(Rational& _rational_1, const int _scalar){
-    
-    Rational _rational_2(_scalar);
-
-    return _rational_1 + _rational_2;
+    return *sum;
 }
 
 /**
@@ -253,7 +190,7 @@ Rational& operator+(Rational& _rational_1, const int _scalar){
     
     Multiply _rational_2 by -1/1 and then add to the _rational_1
 **/
-Rational& operator-(Rational& _rational_1, Rational& _rational_2){
+Rational& operator-(const Rational& _rational_1, const Rational& _rational_2){
 
     Rational minus_1(-1);
 
@@ -266,7 +203,7 @@ Rational& operator-(Rational& _rational_1, Rational& _rational_2){
 
     Rational * Rational
 **/
-Rational& operator*(Rational& _rational_1, Rational& _rational_2){
+Rational& operator*(const Rational& _rational_1, const Rational& _rational_2){
 
     int numerator = _rational_1.num()*_rational_2.num();
     int denominator = _rational_1.denom() * _rational_2.denom();
@@ -277,63 +214,15 @@ Rational& operator*(Rational& _rational_1, Rational& _rational_2){
 }
 
 /** 
-    Overloading the multiplication operator
-
-    Rational * Scalar
-**/
-Rational& operator*(Rational& _rational_1, const int _scalar){
-    
-    Rational _rational_2(_scalar);
-
-    return _rational_1 * _rational_2;
-}
-
-/** 
-    Overloading the multiplication operator
-
-    Scalar * Rational
-**/
-Rational& operator*(const int _scalar, Rational& _rational_1){
-    
-    Rational _rational_2(_scalar);
-
-    return _rational_1 * _rational_2;
-}
-
-/** 
     Overloading the division operator 
 
     Rational / Rational
 **/
-Rational& operator/(Rational& _rational_1, Rational& _rational_2){
+Rational& operator/(const Rational& _rational_1, const Rational& _rational_2){
 
     Rational _rational_2_reciprocal = _rational_2.reciprocal();
 
     return _rational_1*_rational_2_reciprocal;
-}
-
-/**
-    Overloading the division operator 
-
-    Rational / Scalar
-**/
-Rational& operator/( Rational& _rational_1,const int _scalar){
-   
-    Rational _rational_2(_scalar);
-
-    return _rational_1 / _rational_2;
-}
-
-/** 
-    Overloading the division operator
-
-    Scalar / Rational
-**/
-Rational& operator/(const int _scalar, Rational& _rational_1){
-    
-    Rational _rational_2(_scalar);
-
-    return _rational_2/_rational_1;
 }
 
 /**
@@ -343,82 +232,43 @@ Rational& operator/(const int _scalar, Rational& _rational_1){
 /**
     Rational += Rational
 **/
-Rational& Rational::operator+=( Rational& _rational_1){
+Rational& Rational::operator+=( const Rational& _rational_1){
     
-    *this =  (*this) + _rational_1;
+    Rational result = *this + _rational_1;
+    this->numerator = result.num();
+    this->denominator = result.denom();
 
-    return (Rational &) (*this);
+    return *this;
 }
 
-/**
-    Rational += Scalar
-**/
-Rational& Rational::operator+=(const int& _scalar){
-    
-    Rational _rational_1(_scalar);
-    *this = (*this) + _rational_1;
-
-    return (Rational &) (*this);
-}
 
 /**
     Rational -= Rational
 **/
-Rational& Rational::operator-=( Rational& _rational_1){
+Rational& Rational::operator-=( const Rational& _rational_1){
     
     *this = (*this) - _rational_1;
 
     return (Rational &) (*this);   
 }
 
-/**
-    Rational -= Scalar
-**/
-Rational& Rational::operator-=(const int& _scalar){
-    
-    Rational _rational_1(_scalar);
-    *this = (*this) - _rational_1;
-
-    return (Rational &) *this;
-}
 
 /**
     Rational *= Rational
 **/
-Rational& Rational::operator*=( Rational& _rational_1){
+Rational& Rational::operator*=( const Rational& _rational_1){
     
     *this = (*this) * _rational_1;
 
     return (Rational &) (*this);
 }
 
-/**
-    Rational *= Scalar
-**/
-Rational& Rational::operator*=(const int& _scalar){
-
-    Rational _rational_1(_scalar);
-    *this = (*this) * _rational_1;
-
-    return (Rational &) (*this);
-}
 
 /**
     Rational /= Rational
 **/
-Rational& Rational::operator/=( Rational& _rational_1){
+Rational& Rational::operator/=( const Rational& _rational_1){
     
-    *this = (*this) / _rational_1;
-
-    return (Rational &) (*this);
-}
-
-/**
-    Rational /= Scalar
-**/
-Rational& Rational::operator/=(const int& _scalar){
-
-    Rational _rational_1(_scalar);
     *this = (*this) / _rational_1;
 
     return (Rational &) (*this);
@@ -493,83 +343,23 @@ Rational& Rational::operator-(){
 /**
     Rational > Rational
 **/
-bool operator>(Rational& _rational_1,Rational& _rational_2){
+bool operator>(const Rational& _rational_1,const Rational& _rational_2){
 
     return float(_rational_1 - _rational_2) > 0;
 }
 
 /**
-    Rational > Scalar
-**/
-bool operator>(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return (float)(_rational_1 - _rational_2) > 0;
-}
-
-/**
-    Scalar > Rational
-**/
-bool operator>(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
-
-    return (float)(_rational_2 - _rational_1) > 0;
-}
-
-/**
     Rational < Rational
 **/
-bool operator<(Rational& _rational_1, Rational& _rational_2){
+bool operator<(const Rational& _rational_1, const Rational& _rational_2){
 
     return (float)(_rational_1 - _rational_2) < 0;
-}
-/**
-    Rational < Scalar
-**/
-bool operator<(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return (float)(_rational_1 - _rational_2) < 0;
-
-}
-
-/**
-    Scalar < Rational
-**/
-bool operator<(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
-
-    return (float)(_rational_2 - _rational_1) < 0;
 }
 
 /**
     Rational == Rational
 **/
-bool operator==(Rational& _rational_1, Rational& _rational_2){
-
-    return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
-}
-
-/**
-    Rational == Scalar
-**/
-bool operator==(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
-}
-
-/**
-    Scalar == Rational
-**/
-bool operator==(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
+bool operator==(const Rational& _rational_1, const Rational& _rational_2){
 
     return (_rational_1.num() == _rational_2.num()) && (_rational_1.denom() == _rational_2.denom());
 }
@@ -577,83 +367,25 @@ bool operator==(const int _scalar, Rational& _rational_1){
 /**
     Rational >= Rational
 **/
-bool operator>=(Rational& _rational_1, Rational& _rational_2){
+bool operator>=(const Rational& _rational_1, const Rational& _rational_2){
 
     return float(_rational_1 - _rational_2) >= 0;
 }
 
-/**
-    Rational >= Scalar
-**/
-bool operator>=(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return float(_rational_1 - _rational_2) >= 0;
-}
-
-/**
-    Scalar >= Rational
-**/
-bool operator>=(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
-
-    return float(_rational_2 - _rational_1) >= 0;
-}
 
 /**
     Rational <= Rational
 **/
-bool operator<=(Rational& _rational_1, Rational& _rational_2){
+bool operator<=(const Rational& _rational_1, const Rational& _rational_2){
 
     return float(_rational_1 - _rational_2) <= 0;
 }
 
-/**
-    Rational <= Scalar
-**/
-bool operator<=(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return float(_rational_1 - _rational_2) <= 0;
-}
-
-/**
-    Scalar <= Rational
-**/
-bool operator<=(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
-
-    return float(_rational_2 - _rational_1) <= 0;
-}
 
 /**
     Rational != Rational
 **/
-bool operator!=(Rational& _rational_1, Rational& _rational_2){
-
-    return float(_rational_1 - _rational_2) != 0;
-}
-
-/**
-    Rational != Scalar
-**/
-bool operator!=(Rational& _rational_1, const int _scalar){
-
-    Rational _rational_2(_scalar);
-
-    return float(_rational_1 - _rational_2) != 0;
-}
-
-/**
-    Scalar != Rational
-**/
-bool operator!=(const int _scalar, Rational& _rational_1){
-
-    Rational _rational_2(_scalar);
+bool operator!=(const Rational& _rational_1, const Rational& _rational_2){
 
     return float(_rational_1 - _rational_2) != 0;
 }
